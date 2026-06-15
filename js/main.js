@@ -34,33 +34,42 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
 /* Contact form — sends enquiries to the inbox via Web3Forms */
 const form = document.querySelector('#contact-form');
 if (form) {
+  const note = document.querySelector('#form-status');
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const note = document.querySelector('#form-status');
     const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
     if (!val('name') || !val('email')) {
+      note.className = 'form-note is-error';
+      note.style.color = '';
       note.textContent = 'Please add your name and email so we can reply.';
-      note.style.color = 'var(--c-consult)';
+      note.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
     const btn = form.querySelector('button[type="submit"]');
-    note.textContent = 'Sending your enquiry…';
+    note.className = 'form-note';
     note.style.color = 'var(--muted)';
+    note.textContent = 'Sending your enquiry…';
     if (btn) btn.disabled = true;
     try {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) });
       const out = await res.json();
       if (out.success) {
-        note.textContent = "Thank you — your enquiry has been sent. We'll be in touch soon.";
-        note.style.color = 'var(--accent)';
+        note.className = 'form-note is-success';
+        note.style.color = '';
+        note.textContent = '\u2713 Thank you — your enquiry has been sent. We\u2019ll be in touch soon.';
         form.reset();
+        note.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
+        note.className = 'form-note is-error';
+        note.style.color = '';
         note.textContent = 'Sorry, something went wrong. Please try again in a moment.';
-        note.style.color = 'var(--c-consult)';
+        note.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     } catch (err) {
+      note.className = 'form-note is-error';
+      note.style.color = '';
       note.textContent = 'Sorry, something went wrong. Please check your connection and try again.';
-      note.style.color = 'var(--c-consult)';
+      note.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } finally {
       if (btn) btn.disabled = false;
     }
