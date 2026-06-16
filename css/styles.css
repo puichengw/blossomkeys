@@ -380,7 +380,7 @@ section { padding: clamp(3rem, 7vw, 6rem) 0; }
 }
 
 /* ---------- Added: horizontal 3-across fit summary (diagram removed) ---------- */
-.fit-row { grid-template-columns: repeat(3, 1fr); gap: 1.8rem; max-width: 900px; margin: 2.2rem auto 0; }
+.fit-row { grid-template-columns: repeat(3, 1fr); gap: 1.4rem; max-width: 1020px; margin: 2.2rem auto 0; }
 .fit-row li { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 0.55rem; }
 .fit-row .desc { color: var(--muted); }
 @media (max-width: 760px) { .fit-row { grid-template-columns: 1fr; max-width: 340px; gap: 1.3rem; } }
@@ -426,3 +426,6 @@ h1, h2, h3 { text-wrap: balance; }
 
 /* ---------- Added: widened heading block (one-line intro) ---------- */
 .section-head--wide { max-width: none; }
+
+/* ---------- Added: centered summary heading block ---------- */
+.section-head--center { text-align: center; margin-left: auto; margin-right: auto; }
